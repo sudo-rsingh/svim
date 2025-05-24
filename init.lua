@@ -15,8 +15,29 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 -- empty setup using defaults
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+  view = {
+    float = {
+      enable = true,
+      open_win_config = {
+        relative = "editor",
+        border = "rounded",
+        width = 40,
+        height = 20,
+        row = 10,
+        col = 10,
+      },
+    },
+    -- Disable the default side panel to avoid duplicates
+    side = "left",
+    width = 40,
+    -- If you want to hide the default side bar, set this to false
+    -- number = false,
+  },
+})
+-- require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+
 
 require('lualine').setup()
 
@@ -34,4 +55,24 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
   pattern = "*",
   command = "wall",
 })
+
+
+function OpenFileSmart(path)
+    local tab_count = vim.fn.tabpagenr('$')
+    if tab_count > 1 or #vim.api.nvim_list_bufs() > 1 then
+        vim.cmd('tabnew ' .. vim.fn.fnameescape(path))
+    else
+        vim.cmd('edit ' .. vim.fn.fnameescape(path))
+    end
+end
+
+-- Usage: :lua OpenFileSmart("your_file.txt")
+
+
+vim.api.nvim_create_user_command('OpenSmart', function(opts)
+  OpenFileSmart(opts.args)
+end, { nargs = 1, complete = 'file' })
+
+--  Usage: :OpenSmart your_file.txt
+
 
