@@ -15,27 +15,31 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 -- empty setup using defaults
+local float_width = 40
+local float_height = 20
+
 require("nvim-tree").setup({
   view = {
     float = {
       enable = true,
-      open_win_config = {
-        relative = "editor",
-        border = "rounded",
-        width = 40,
-        height = 20,
-        row = 10,
-        col = 10,
-      },
+      open_win_config = function()
+        local screen_w = vim.o.columns
+        local screen_h = vim.o.lines
+        local col = math.ceil((screen_w - float_width) / 2)
+        local row = math.ceil((screen_h - float_height) / 2 - 1) -- -1 to adjust for cmdline
+
+        return {
+          relative = "editor",
+          border = "rounded",
+          width = float_width,
+          height = float_height,
+          row = row,
+          col = col,
+        }
+      end,
     },
-    -- Disable the default side panel to avoid duplicates
-    side = "left",
-    width = 40,
-    -- If you want to hide the default side bar, set this to false
-    -- number = false,
   },
 })
--- require("nvim-tree").setup()
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
 
