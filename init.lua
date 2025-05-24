@@ -14,9 +14,6 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
--- empty setup using defaults
-local float_width = 40
-local float_height = 20
 
 require("nvim-tree").setup({
   view = {
@@ -25,14 +22,14 @@ require("nvim-tree").setup({
       open_win_config = function()
         local screen_w = vim.o.columns
         local screen_h = vim.o.lines
-        local col = math.ceil((screen_w - float_width) / 2)
-        local row = math.ceil((screen_h - float_height) / 2 - 1) -- -1 to adjust for cmdline
+        local col = math.ceil(0.25 * screen_w)
+        local row = math.ceil(0.25 * screen_h - 1)
 
         return {
           relative = "editor",
           border = "rounded",
-          width = float_width,
-          height = float_height,
+          width = 0.5 * screen_w,
+          height = 0.5 * screen_h,
           row = row,
           col = col,
         }
