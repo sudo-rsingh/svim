@@ -28,8 +28,8 @@ require("nvim-tree").setup({
         return {
           relative = "editor",
           border = "rounded",
-          width = 0.5 * screen_w,
-          height = 0.5 * screen_h,
+          width = math.ceil(0.5 * screen_w),
+          height = math.ceil(0.5 * screen_h),
           row = row,
           col = col,
         }
@@ -37,8 +37,8 @@ require("nvim-tree").setup({
     },
   },
 })
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
+vim.keymap.set('n', '<leader>ee', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
 require('lualine').setup()
 
