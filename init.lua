@@ -14,32 +14,6 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
-
-require("nvim-tree").setup({
-  view = {
-    float = {
-      enable = true,
-      open_win_config = function()
-        local screen_w = vim.o.columns
-        local screen_h = vim.o.lines
-        local col = math.ceil(0.25 * screen_w)
-        local row = math.ceil(0.25 * screen_h - 1)
-
-        return {
-          relative = "editor",
-          border = "rounded",
-          width = math.ceil(0.5 * screen_w),
-          height = math.ceil(0.5 * screen_h),
-          row = row,
-          col = col,
-        }
-      end,
-    },
-  },
-})
-
-vim.keymap.set('n', '<leader>ee', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
-
 require('lualine').setup()
 
 require('telescope').setup()
