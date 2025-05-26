@@ -1,4 +1,3 @@
-
 vim.keymap.set('n', '<leader>ee', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
 return {
