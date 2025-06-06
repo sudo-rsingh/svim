@@ -20,7 +20,7 @@ return {
         },
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "pyright" },
+                ensure_installed = { "pyright", "ts_ls" },
                 automatic_installation = true,
             })
 
@@ -31,6 +31,11 @@ return {
             lspconfig.pyright.setup({
                 capabilities = capabilities,
             })
+
+            lspconfig.ts_ls.setup({
+                capabilities = capabilities,
+            })
+
         end
     }
 }

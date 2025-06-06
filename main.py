@@ -8,4 +8,5 @@ print(H2)
 calc = GPAW()
 
 print(calc) 
-
+print("hi")
+print("working")

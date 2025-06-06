@@ -18,15 +18,16 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 
 
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
-  pattern = "*",
-  command = "wall",
-})
-
--- vim.diagnostic.config({  
---   virtual_text = {
---     prefix = '●',  -- Can use '■', '▎', 'x'
---     spacing = 2,
---     source = "always", -- Show source name too (optional)
---   },
+-- vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+--   pattern = "*",
+--   command = "wall",
 -- })
+
+vim.diagnostic.config({  
+  virtual_text = {
+    severity = vim.diagnostic.severity.ERROR,
+    prefix = '●',  -- Can use '■', '▎', 'x'
+    spacing = 2,
+    source = "always", -- Show source name too (optional)
+  },
+})
