@@ -22,6 +22,17 @@ vim.opt.termguicolors = true
 --   pattern = "*",
 --   command = "wall",
 -- })
+vim.api.nvim_create_autocmd("ModeChanged", {
+  pattern = "*:n",
+  callback = function()
+    if vim.bo.filetype == "NvimTree" then
+      vim.keymap.set("n", "<Esc>",  "NvimTreeClose<CR>", { buffer = true, silent = true })
+--     vim.cmd("NvimTreeClose")
+    end
+  end,
+})
+
+
 
 vim.diagnostic.config({  
   virtual_text = {

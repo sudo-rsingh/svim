@@ -10,7 +10,14 @@ return {
           git = {
             ignore = false
           },
+          renderer = {
+            indent_markers = {
+              enable = true
+            }
+          },
             view = {
+              number = true,
+              relativenumber = true,
                 float = {
                     enable = true,
                     open_win_config = function()
