@@ -17,21 +17,21 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
+vim.opt.cursorline = true  -- Highlights current line background
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#FFFFFF' })  -- Orange numbers
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#000000', bold = true })
 
 -- vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
 --   pattern = "*",
 --   command = "wall",
 -- })
-vim.api.nvim_create_autocmd("ModeChanged", {
-  pattern = "*:n",
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "NvimTree",
   callback = function()
-    if vim.bo.filetype == "NvimTree" then
-      vim.keymap.set("n", "<Esc>",  "NvimTreeClose<CR>", { buffer = true, silent = true })
---     vim.cmd("NvimTreeClose")
-    end
+    vim.keymap.set("n", "<Esc>", ":NvimTreeClose<CR>", { buffer = true, silent = true })
   end,
 })
-
 
 
 vim.diagnostic.config({  
@@ -42,3 +42,15 @@ vim.diagnostic.config({
     source = "always", -- Show source name too (optional)
   },
 })
+
+-- Create augroup to prevent duplicate autocommands
+local cwd_sync = vim.api.nvim_create_augroup("CwdSync", { clear = true })
+
+vim.api.nvim_create_autocmd("VimLeave", {
+  pattern = "*",
+  group = cwd_sync,
+  callback = function()
+    vim.fn.writefile({vim.fn.getcwd()}, '/tmp/nvim_cwd', 'b')
+  end
+})
+

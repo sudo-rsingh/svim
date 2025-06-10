@@ -7,6 +7,17 @@ return {
     },
     config = function()
         require("nvim-tree").setup({ 
+          sync_root_with_cwd = true,    -- Sync tree root with Neovim's CWD
+          update_focused_file = {
+            enable = true,
+            update_root = true          -- Update root when focusing files
+          },
+          actions = {
+            change_dir = {
+              enable = true,
+              global = true,
+            }
+          },
           git = {
             ignore = false
           },
