@@ -17,14 +17,46 @@ vim.g.loaded_netrwPlugin = 1
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
 
-vim.opt.cursorline = true  -- Highlights current line background
-vim.api.nvim_set_hl(0, 'LineNr', { fg = '#FFFFFF' })  -- Orange numbers
-vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#000000', bold = true })
+-- Normal mode left/right
+vim.keymap.set('n', '<Left>', function()
+  if vim.fn.col('.') == 1 then
+    return 'k$'
+  else
+    return '<Left>'
+  end
+end, { expr = true, noremap = true })
+
+
+vim.keymap.set('n', '<Left>', function()
+  if vim.fn.col('.') == 1 then
+    return 'k$'
+  else
+    return '<Left>'
+  end
+end, { expr = true, noremap = true })
+
+vim.keymap.set('n', '<Right>', function()
+  local col = vim.fn.col('.')
+  local lastcol = vim.fn.col('$')
+  local line = vim.fn.getline('.')
+  if col >= lastcol - 1 or line == '' then
+    return 'j0'
+  else
+    return '<Right>'
+  end
+end, { expr = true, noremap = true })
+
+-- vim.opt.cursorline = true  -- Highlights current line background
+-- vim.api.nvim_set_hl(0, 'LineNr', { fg = '#FFFFFF' })  -- Orange numbers
+-- vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#000000', bold = true })
 
 -- vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
 --   pattern = "*",
 --   command = "wall",
 -- })
+
+
+
 
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "NvimTree",
